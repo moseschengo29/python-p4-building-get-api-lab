@@ -9,6 +9,8 @@ from models import db, Bakery, BakedGood
 
 fake = Faker()
 
+# ...
+
 with app.app_context():
 
     BakedGood.query.delete()
@@ -32,10 +34,12 @@ with app.app_context():
             name = fake.first_name()
         names.append(name)
 
+        # Associate each BakedGood with a random Bakery
+        random_bakery = rc(bakeries)
         bg = BakedGood(
             name=name,
             price=randint(1,10),
-            bakery=rc(bakeries)
+            bakery=random_bakery,  # Set the bakery attribute
         )
 
         baked_goods.append(bg)
